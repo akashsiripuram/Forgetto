@@ -27,8 +27,7 @@ const contentSchema=new mongoose.Schema({
     },
     type:{
         type:String,
-        required:true,
-        enum:["video","audio","image","article"]
+        required:true
     },
     title:{
         type:String,

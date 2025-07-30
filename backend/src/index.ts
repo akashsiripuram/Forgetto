@@ -6,11 +6,12 @@ import bcrypt from "bcrypt";
 import { verifyToken } from "./middleware";
 import mongoose from "mongoose";
 import { config } from "dotenv";
+import cors from "cors";
 config();
 
 const app = express();
 app.use(express.json());
-
+app.use(cors());
 mongoose.connect(process.env.MONGO_URI as string)
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.error("MongoDB connection error:", err));
@@ -68,7 +69,7 @@ app.post("/api/v1/content", verifyToken, async (req, res) => {
     });
     return res.status(200).json({ message: "Content created successfully" });
   } catch (err) {
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error"+err });
   }
 });
 app.get("/api/v1/content", verifyToken,async (req, res) => {
